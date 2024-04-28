@@ -17,21 +17,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 8000;
 
-const corsOptions = {
-  origin: true,
-  Credential: true
-}
-
- // Enable CORS middleware
-
+// Enable CORS middleware
 app.use(cors({
   origin: 'https://traval-frontend.vercel.app',
   credentials: true // Allow credentials to be sent
 }));
 
-
-
-// database connection
+// Database connection
 mongoose.set("strictQuery", false);
 const connect = async () => {
   try {
@@ -39,15 +31,14 @@ const connect = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    console.log("MongoDB database Conntected");
+    console.log("MongoDB database Connected");
   } catch (err) {
-    console.log("MongoDB database Connectoion failed", err);
+    console.log("MongoDB database Connection failed", err);
   }
 };
 
-// middleware
+// Middleware
 app.use(express.json());
-app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/tours", tourRoute);
@@ -55,8 +46,7 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/review", reviewRoute);
 app.use("/api/v1/booking", bookingRoute);
 
-
 app.listen(port, () => {
   connect();
-  console.log("server listening on port", port);
+  console.log("Server listening on port", port);
 });
